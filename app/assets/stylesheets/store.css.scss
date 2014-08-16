@@ -1,0 +1,23 @@
+// Place all the styles related to the Store controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.store {
+  /* this is needed for the parent 
+     to have height. read more 
+     http://css-tricks.com/all-about-floats/
+  */
+  overflow:hidden;
+  /* margin-top: 5em; */
+  /* adjust width of this element
+     if its width is not limited by its parent
+  width: 300px;
+  */
+}
+    .store li {
+        /* add margins and paddings as you wish */
+        float:left;  
+          p, div.meal_line {
+              margin-left: 100px;
+              margin-right: 100px;
+          }
+    }
