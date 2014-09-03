@@ -1,10 +1,17 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
 
+  
+def showcart
+  #@cart = Cart.all
+   @line_items = LineItem.where(user: current_user).order("created_at DESC")
+end
+
   # GET /carts
   # GET /carts.json
   def index
-    @carts = Cart.all
+   # @cart = Cart.all
+    @line_items = LineItem.where(user: current_user).order("created_at DESC")
   end
 
   # GET /carts/1

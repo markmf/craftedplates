@@ -1,7 +1,6 @@
 class Meal < ActiveRecord::Base
 	has_many :line_items
-	before_destroy :ensure_not_reference_by_any_line_item
-
+	
   	validates :name, :description, :serving, :calories, :image_url, presence: true
   	validates :calories, :serving, numericality: {greate_than_or_equal_to: 1}
   	validates :name, uniqueness: true
@@ -18,7 +17,7 @@ class Meal < ActiveRecord::Base
     			return true
     		else
     			errors.add(:base, 'Meal Item present')
-    			return fals
+    			return false
     		end
     	end
 end

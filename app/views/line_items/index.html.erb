@@ -1,26 +1,50 @@
-<h1>Listing line_items</h1>
 
-<table>
-  <thead>
+<div class="center">
+  <h1>My Basket</h1>
+</div>
+
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+
+  <div class="center panel panel-title panel-primary panel-heading">My Basket</div>
+
+  <div class="panel-body">
+    <p>Delivery is next week</p>
+  </div>
+
+
+<table class="table table-striped table-hover">
+  <tr>
+    <th class="center">Meal Item</th>
+    <th class="center">Meal URL</th>
+    <th class="center">Meal Name</th>
+    <th class="center">Quantity</th>
+    <th class="center">Unit Price</th>
+
+  </tr>
+
+  <% @line_items.each do |item| %>
     <tr>
-      <th>Meal</th>
-      <th>Cart</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @line_items.each do |line_item| %>
-      <tr>
-        <td><%= line_item.meal %></td>
-        <td><%= line_item.cart %></td>
-        <td><%= link_to 'Show', line_item %></td>
-        <td><%= link_to 'Edit', edit_line_item_path(line_item) %></td>
-        <td><%= link_to 'Destroy', line_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+
+      <td class="center"><%= item.meal_id %></td>
+      <td class="center"><%= image_tag(item.image_url,  size: "100x100") %></td>
+      <td class="center"><%= item.name %></td>
+      <td class="center"><%= item.quantity %></td>
+      <td class="center"><%= number_to_currency(item.unit_price(item.quantity)) %></td> 
+    </tr>
+  <% end %>
+
+
+  <tr class="total_line">
+    <td colspan="4">Total</td>
+    <td class="total_cell">
+       <%= number_to_currency(255) %>
+    </td>
+  </tr>
+
 </table>
+</div>
 
 <br>
 

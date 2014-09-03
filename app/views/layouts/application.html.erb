@@ -19,8 +19,9 @@
 
 </head>
 
-<body>
 
+<body>
+  <%= render 'layouts/facebook' %>
   <%= render 'layouts/header' %>
 
        
@@ -38,13 +39,9 @@
   
      
 
- <!--   <div class="container-fluid"> -->
-        <%= yield %>
+    <%= yield %>
 
-        <%= render 'layouts/footer'%>
-
-     
-
+    <%= render 'layouts/footer'%>
      
   </div>
 </body>

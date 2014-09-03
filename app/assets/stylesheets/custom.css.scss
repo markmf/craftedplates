@@ -1,5 +1,7 @@
 @import "bootstrap";
 
+
+
 body {
   background-color: #F5F5F1;
   color: #333333;
@@ -31,10 +33,14 @@ body {
   color: #0192B5;
 }
 
+.center {
+  text-align: center;
+}
+
 .jumbotron {
 	border: 1px solid #f2cb3b;
 	font-weight: bold;
-
+  
 	.btn-primary {
 	color: #F5F5F5
 	}

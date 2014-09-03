@@ -9,11 +9,11 @@
     </button>
 
     <div class="thumbnail"> 
-    	<%= link_to(image_tag("craftedplates.jpg", :size => "100x100"), store_index_path )  %>
+    	<%= link_to(image_tag("crafted-plates-round.png", :size => "200x200"), store_index_path )  %>
     </div>
  
 
-    <a class="active" href="/">Crafted Plates</a>
+ <!--   <a class="active" href="/">Crafted Plates</a> -->
     
   </div>
 
@@ -25,9 +25,23 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><%= link_to "Home", store_index_path %></li>
+
+      <% if :cart_id %>
+         <li><%= link_to "Basket", line_items_path %></li>
+      <% else %>
+         <li><%= link_to "Basket", store_index_path %></li>
+      <% end %>
+
       <% if user_signed_in? %>
-      	<li><%= link_to "Edit Profile", edit_user_registration_path %></li>
-      	<li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= current_user.name %> <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "My Basket", line_items_path %></li>
+            <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          </ul>
+        </li>
       <% else %>
       	<li><%= link_to "Sign Up", new_user_registration_path %></li>
       	<li><%= link_to "Sign In", new_user_session_path %></li>

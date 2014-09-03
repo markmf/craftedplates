@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :orders
+
   devise_for :users
   resources :line_items
 
@@ -13,6 +15,10 @@ Rails.application.routes.draw do
   get 'info/contact'
 
   get 'store/index'
+
+  get 'showcart' => "carts/show"
+
+  
 
   resources :meals
 
