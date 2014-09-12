@@ -14,6 +14,8 @@ class LineItemsController < ApplicationController
       @line_items = LineItem.all.where(user: 0)
     end
 
+
+
   end
    # p = ActiveRecord::Base.connection.execute("select m.name, m.id, m.image_url, l.* from meals as m INNER JOIN line_items as l  where l.meal_id = m.id and l.user_id = #{current_user}" )
 
@@ -35,19 +37,30 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
+   
     meal = Meal.find(params[:meal_id])
+
     @line_item = @cart.add_product(meal.id)
 
-puts "The Plate QTY is," 
-puts params[:plate_qty]
+  puts "*"*50
+  puts params
+  puts "*"*50
+  @line_item.quantity = params[:plate_qty]
+  @line_item.plate_qty = @line_item.quantity
 
-    if params[:plate_qty].present?
-      @line_item.quantity = params[:plate_qty]
-      @line_item.plate_qty = @line_item.quantity
-    else
-      @line_item.quantity = 6
-      @line_item.plate_qty = 6
-    end
+  #  if params[:plate_qty].blank?
+  #      @line_item.quantity = 6
+  #  else
+  #      @line_item.quantity = params[:plate_qty]
+  #  end
+    
+   # if params[:plate_qty].present?
+   #   @line_item.quantity = params[:plate_qty]
+   #   @line_item.plate_qty = @line_item.quantity
+   # else
+   #   @line_item.quantity = 6
+   #   @line_item.plate_qty = 6
+   # end
 
     Rails.logger.debug params.inspect
 
@@ -67,7 +80,7 @@ puts params[:plate_qty]
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to store_index_path, notice: 'Meal item was successfully added onto the cart. '}
+        format.html { redirect_to store_index_path, notice: 'Meal item was successfully added onto the CART. '}
       #  format.html { redirect_to @line_item.cart, notice: 'Meal item was successfully added onto the cart. '}
         format.json { render :show, status: :created, location: @line_item }
       else

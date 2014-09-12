@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :plates
+
   resources :orders
 
   devise_for :users

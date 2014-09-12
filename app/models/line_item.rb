@@ -2,12 +2,13 @@ class LineItem < ActiveRecord::Base
   belongs_to :cart
   belongs_to :user
   belongs_to :meal
+  belongs_to :plate
 
   has_many :orders
 
  public
 
-  def tot_price
+  def add_total_price
       line_items.to_a.sum { |item| item.unit_price(item.quantity) }
   end
 

@@ -1,0 +1,8 @@
+<h2> Your Order Summary </h2>
+<table>
+		<td colspan="2">Subtotal</td>
+		<td class="total_cell">
+       <%= number_to_currency(@line_items.to_a.sum { |item| item.unit_price(item.quantity) }) %>
+    	</td>
+</table>
+
