@@ -36,6 +36,7 @@ gem 'spring',        group: :development
 gem "figaro"
 gem 'devise'
 gem 'stripe'
+gem 'simple_form'
 
 
 # group :production do

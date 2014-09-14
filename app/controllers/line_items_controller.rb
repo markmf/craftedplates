@@ -10,6 +10,7 @@ class LineItemsController < ApplicationController
    # @line_items = LineItem.all
     if user_signed_in? 
       @line_items = LineItem.all.where(user: current_user).order("created_at DESC")
+      @line_item = LineItem.all.where(user: current_user).first
     else
       @line_items = LineItem.all.where(user: 0)
     end
@@ -76,7 +77,7 @@ class LineItemsController < ApplicationController
 
     @line_item.image_url = meal.image_url
     @line_item.name = meal.name
-    
+    @line_item.delivery_date = Time.now
 
     respond_to do |format|
       if @line_item.save

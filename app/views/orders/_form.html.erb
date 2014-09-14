@@ -17,14 +17,16 @@
 </div>
 
 <div style="float:left;">
-   
+  
+  
 <div class="jumbotron">
+
   <small>Enter your shipping information</small>
   <div class="row">
       <div class="col-md-4">
         <div class="form-group">
           <%= f.label :first_name %>
-          <%= f.text_field :first_name,   class: "form-control" %>
+         <%= f.text_field :first_name,   class: "form-control" %>
         </div>
       </div>
       <div class="col-md-8">
@@ -34,6 +36,7 @@
         </div>
       </div>
   </div>
+
 
   <div class="form-group">
     <%= f.label :address %>
@@ -56,13 +59,13 @@
     <%= f.email_field :email, class: "form-control" %>
   </div>
 </div>
+
 </div>
 
 <div style="float:right;">
 
 
 <div class="jumbotron">
-
   <div class="form-group">
     <div class="row">
       <div class="col-md-8">
@@ -92,6 +95,8 @@
   </div>
 </div>
 
+
+<%= params.inspect %>
 <% end %>
 
  
