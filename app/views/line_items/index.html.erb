@@ -49,7 +49,7 @@
     <th class="left">Item  Meal Name </th>
     <th class="left">Quantity</th>
     <th class="center">Price</th>
-    <th class="center">Delivery Date</th>
+  <!-- <th class="center">Delivery Date</th> -->
 
   </tr>
 
@@ -63,7 +63,7 @@
 
       <td class="left"><%= select_tag(item.quantity, options_for_select([['2', 2], ['4', 4], ['6', 6]], item.quantity)) %></td>
       <td class="center"><%= number_to_currency(item.unit_price(item.quantity)) %></td> 
-      <td class="center"><%= item.delivery_date.strftime("%A, %m/%d") %></td>
+   <!--   <td class="center"><%= item.delivery_date.strftime("%A, %m/%d") %></td> -->
     </tr>
   <% end %>
 

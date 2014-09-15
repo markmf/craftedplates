@@ -20,7 +20,12 @@ class OrdersController < ApplicationController
   #  if @cart.line_items.empty?
   #    redirect_to store_index_path, notice: "Your cart is empty"
   #  end
-
+    if user_signed_in? 
+      @line_items = LineItem.all.where(user: current_user).order("created_at DESC")
+      
+    else
+      @line_items = LineItem.all.where(user: 0)
+    end
     @order = Order.new
   end
 

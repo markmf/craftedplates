@@ -1,4 +1,4 @@
-<%= form_for([@listing, @order]) do |f| %>
+<%= form_for([@order]) do |f| %>
   <% if @order.errors.any? %>
     <div id="error_explanation" class="alert alert-danger alert-dismissable">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -58,6 +58,8 @@
     <%= f.label :email %>
     <%= f.email_field :email, class: "form-control" %>
   </div>
+
+
 </div>
 
 </div>
@@ -95,6 +97,33 @@
   </div>
 </div>
 
+<div class="jumbotron">
+<h2> Review your Order </h2>
+<table class="table table-striped table-hover">
+  <tr>
+   
+
+  </tr>
+  <% @line_items.each do |item| %>
+    <tr>
+      <td class="left"><%= image_tag(item.image_url,  size: "50x50") %></td>
+      <td class="left"><%= item.quantity %> PLATES</td>
+      <td class="center"><%= number_to_currency(item.unit_price(item.quantity)) %></td>
+    </tr>
+  <% end %>
+      <td class="left">Subtotal</td>
+      <td class="center"><%= number_to_currency(@line_items.to_a.sum { |item| item.unit_price(item.quantity) }) %> </td>
+
+</table>
+
+
+
+
+  <div class="form-group">
+    <%= f.submit "Place Order", class: "btn btn-success", data: { no_turbolink: true }  %>
+  </div>
+
+</div>
 
 <%= params.inspect %>
 <% end %>
