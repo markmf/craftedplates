@@ -15,3 +15,7 @@
 //= require turbolinks
 //= require_tree .
 
+$('.selectpicker').selectpicker({ 'selectedText': '',style:'btn-lg' });
+
+
+

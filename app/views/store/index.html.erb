@@ -3,15 +3,22 @@
 
 
 <br>
+<br>
+<br>
+<h2>
+	On The Menu
+</h2>
 
 <div class="row">
 	<% @meals.each do |meal| %>
 		<div class="col-md-3">
-			<div class="thumbnail">    
-				<%= link_to(image_tag(meal.image_url, :size => "250x250"), meal )  %>  
-       		
+		<!--	<div class="thumbnail">  -->
+			<div class="recipe-thumb">    
+				<%= link_to(image_tag(meal.image_url, :size => "275x275"), meal )  %>  
 				<div class="caption">
-					<h3><strong> <%= meal.name %>  </strong> </h3>
+				  <h3><strong>
+				 <%= link_to(meal.name, meal) %>
+				 </strong></h3>
    				</div>
    			</div>
    		</div>

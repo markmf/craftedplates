@@ -10,7 +10,7 @@ end
   # GET /carts
   # GET /carts.json
   def index
-   # @cart = Cart.all
+    @cart = Cart.all
     @line_items = LineItem.where(user: current_user).order("created_at DESC")
   end
 

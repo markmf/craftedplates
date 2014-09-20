@@ -1,4 +1,7 @@
 class MealsController < ApplicationController
+  include CurrentCart
+  before_action :set_cart
+  
   before_action :set_meal, only: [:show, :edit, :update, :destroy]
 
   # GET /meals

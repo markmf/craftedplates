@@ -9,6 +9,8 @@ class Meal < ActiveRecord::Base
      message: 'must be a URL for GIF, JPG or PNG image.'
     }
 
+    before_destroy :ensure_not_reference_by_any_line_item
+    
     private
 
     	#ensure that there are no line items referencing this product

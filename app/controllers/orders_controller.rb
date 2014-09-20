@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /orders
   # GET /orders.json
@@ -20,13 +21,17 @@ class OrdersController < ApplicationController
   #  if @cart.line_items.empty?
   #    redirect_to store_index_path, notice: "Your cart is empty"
   #  end
+
+  puts "=====ENTERING ORDER new routine========"
+
     if user_signed_in? 
       @line_items = LineItem.all.where(user: current_user).order("created_at DESC")
-      
     else
       @line_items = LineItem.all.where(user: 0)
     end
     @order = Order.new
+
+  puts "========DONE with ORDER.new============="
   end
 
   # GET /orders/1/edit
@@ -36,10 +41,25 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+
+    puts "======ENTERING ORDER CREATE ROUTINE==="
+
     @order = Order.new(order_params)
 
+    puts "=====EXECUTED ORDER.new ==============="
 
     @order.user_id = current_user.id
+
+    puts "===Retrieving LINE_ITEMS in Order.create=============="
+    if user_signed_in? 
+      @line_items = LineItem.all.where(user: current_user).order("created_at DESC")
+    else
+      @line_items = LineItem.all.where(user: 0)
+    end
+
+    @line_item = @line_items.first
+    @order.delivery_date = @line_item.delivery_date
+    @order.total_price = @line_items.to_a.sum { |item| item.unit_price(item.quantity) }
 
     Stripe.api_key = ENV["STRIPE_API_KEY"]
     token = params[:stripeToken]
@@ -55,10 +75,18 @@ class OrdersController < ApplicationController
       flash[:danger] = e.message
     end
     
+    puts "=======Entering Order.save====="
 
     respond_to do |format|
       if @order.save
-        format.html { redirect_to @order, notice: 'Order was successfully created.' }
+        
+        puts "=====EXECUTED ORDER.new Order Id is #{@order.id}"
+        LineItem.where(:user_id => current_user).update_all("order_id = #{@order.id}")
+
+        Cart.destroy(session[:cart_id])
+        session[:cart_id] = nil
+
+        format.html { redirect_to store_index_path, notice: 'Thank you for your order.' }
         format.json { render :show, status: :created, location: @order }
       else
         format.html { render :new }

@@ -4,7 +4,7 @@ class LineItem < ActiveRecord::Base
   belongs_to :meal
   belongs_to :plate
 
-  has_many :orders
+  belongs_to :orders
 
  public
 

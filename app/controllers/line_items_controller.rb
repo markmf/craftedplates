@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create]
+  before_action :set_cart
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
   
@@ -8,13 +8,19 @@ class LineItemsController < ApplicationController
   # GET /line_items.json
   def index
    # @line_items = LineItem.all
-    if user_signed_in? 
-      @line_items = LineItem.all.where(user: current_user).order("created_at DESC")
-      @line_item = LineItem.all.where(user: current_user).first
+    if @cart.line_items.empty? 
+      respond_to do |format|
+        format.html { redirect_to store_index_path, notice: "Your Basket is empty" }
+        format.json { head :no_content }
+      end
     else
-      @line_items = LineItem.all.where(user: 0)
+      if user_signed_in? 
+        @line_items = LineItem.all.where(user: current_user).order("created_at DESC")
+        @line_item = LineItem.all.where(user: current_user).first
+      else
+       @line_items = LineItem.all.where(user: 0)
+      end
     end
-
 
 
   end
@@ -49,11 +55,7 @@ class LineItemsController < ApplicationController
   @line_item.quantity = params[:plate_qty]
   @line_item.plate_qty = @line_item.quantity
 
-  #  if params[:plate_qty].blank?
-  #      @line_item.quantity = 6
-  #  else
-  #      @line_item.quantity = params[:plate_qty]
-  #  end
+
     
    # if params[:plate_qty].present?
    #   @line_item.quantity = params[:plate_qty]

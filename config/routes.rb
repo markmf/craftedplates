@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   devise_for :users
   resources :line_items
 
+  #resources :line_items do
+  #  resources :orders
+  #end
+
   resources :carts
 
   #resources :meals do
